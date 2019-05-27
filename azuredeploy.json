@@ -1,0 +1,240 @@
+// 20190527104618
+// https://raw.githubusercontent.com/unicef/unicef-cloud-templates/master/unicef_webs_azuredeploy.json?token=ADTD7OQMKL2GZ3QGA4CUL3K46UZLU
+
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "sites_uni_archive_name": {
+      "defaultValue": "uni-archive",
+      "type": "String"
+    },
+    "serverfarms_APP_UNI_WEBS_STATIC_externalid": {
+      "defaultValue": "/subscriptions/878024e4-58e0-423a-8c18-5d58cd6da2d3/resourceGroups/RS-UNI-WEBS/providers/Microsoft.Web/serverfarms/APP-UNI-WEBS-STATIC",
+      "type": "String"
+    }
+  },
+  "variables": {
+    
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2016-08-01",
+      "name": "[parameters('sites_uni_archive_name')]",
+      "location": "West Europe",
+      "kind": "app",
+      "properties": {
+        "enabled": true,
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('sites_uni_archive_name'), '.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Standard"
+          },
+          {
+            "name": "[concat(parameters('sites_uni_archive_name'), '.scm.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Repository"
+          }
+        ],
+        "serverFarmId": "[parameters('serverfarms_APP_UNI_WEBS_STATIC_externalid')]",
+        "reserved": false,
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": true,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 0,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/config",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(parameters('sites_uni_archive_name'), '/web')]",
+      "location": "West Europe",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_uni_archive_name'))]"
+      ],
+      "properties": {
+        "numberOfWorkers": 1,
+        "defaultDocuments": [
+          "Default.htm",
+          "Default.html",
+          "Default.asp",
+          "index.htm",
+          "index.html",
+          "iisstart.htm",
+          "default.aspx",
+          "index.php",
+          "hostingstart.html"
+        ],
+        "netFrameworkVersion": "v4.0",
+        "phpVersion": "5.6",
+        "pythonVersion": "",
+        "nodeVersion": "",
+        "linuxFxVersion": "",
+        "requestTracingEnabled": false,
+        "remoteDebuggingEnabled": false,
+        "httpLoggingEnabled": false,
+        "logsDirectorySizeLimit": 35,
+        "detailedErrorLoggingEnabled": false,
+        "publishingUsername": "$uni-archive",
+        "scmType": "VSO",
+        "use32BitWorkerProcess": true,
+        "webSocketsEnabled": false,
+        "alwaysOn": false,
+        "appCommandLine": "",
+        "managedPipelineMode": "Integrated",
+        "virtualApplications": [
+          {
+            "virtualPath": "/",
+            "physicalPath": "site\\wwwroot",
+            "preloadEnabled": false,
+            "virtualDirectories": null
+          }
+        ],
+        "winAuthAdminState": 0,
+        "winAuthTenantState": 0,
+        "customAppPoolIdentityAdminState": false,
+        "customAppPoolIdentityTenantState": false,
+        "loadBalancing": "LeastRequests",
+        "routingRules": [
+          
+        ],
+        "experiments": {
+          "rampUpRules": [
+            
+          ]
+        },
+        "autoHealEnabled": false,
+        "vnetName": "",
+        "siteAuthEnabled": true,
+        "siteAuthSettings": {
+          "enabled": null,
+          "unauthenticatedClientAction": null,
+          "tokenStoreEnabled": null,
+          "allowedExternalRedirectUrls": null,
+          "defaultProvider": null,
+          "clientId": "dc24fd5b-f743-466a-be36-5dbbd433f057",
+          "clientSecret": null,
+          "clientSecretCertificateThumbprint": null,
+          "issuer": "https://sts.windows.net/77410195-14e1-4fb8-904b-ab1892023667/",
+          "allowedAudiences": null,
+          "additionalLoginParams": null,
+          "isAadAutoProvisioned": false,
+          "googleClientId": null,
+          "googleClientSecret": null,
+          "googleOAuthScopes": null,
+          "facebookAppId": null,
+          "facebookAppSecret": null,
+          "facebookOAuthScopes": null,
+          "twitterConsumerKey": null,
+          "twitterConsumerSecret": null,
+          "microsoftAccountClientId": null,
+          "microsoftAccountClientSecret": null,
+          "microsoftAccountOAuthScopes": null
+        },
+        "localMySqlEnabled": false,
+        "http20Enabled": false,
+        "minTlsVersion": "1.2",
+        "ftpsState": "AllAllowed",
+        "reservedInstanceCount": 0
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/deployments",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(parameters('sites_uni_archive_name'), '/335161d15bb069cb06f25de9f8fd403c151a9e03')]",
+      "location": "West Europe",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_uni_archive_name'))]"
+      ],
+      "properties": {
+        "id": "335161d15bb069cb06f25de9f8fd403c151a9e03",
+        "status": 4,
+        "author_email": "kkhajuria@unicef.org",
+        "author": "Kaushik Khajuria",
+        "deployer": "VSTS",
+        "message": "Merged PR 107: Add Malaysia ROCO 2\n\nAdd Malaysia ROCO 2\n",
+        "start_time": "2019-05-03T02:00:26.264644Z",
+        "end_time": "2019-05-03T02:04:43.3868723Z",
+        "active": true
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/deployments",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(parameters('sites_uni_archive_name'), '/7224244824609ee7b8dc549322929e29f6620fc4')]",
+      "location": "West Europe",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_uni_archive_name'))]"
+      ],
+      "properties": {
+        "id": "7224244824609ee7b8dc549322929e29f6620fc4",
+        "status": 4,
+        "author_email": "kkhajuria@unicef.org",
+        "author": "Kaushik Khajuria",
+        "deployer": "VSTS",
+        "message": "Content added for Malaysia ROCO 05022019\n",
+        "start_time": "2019-05-02T22:34:02.8589989Z",
+        "end_time": "2019-05-02T22:40:02.9045904Z",
+        "active": false
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/deployments",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(parameters('sites_uni_archive_name'), '/7d3e8682f950c74c4a3aff8bb0f148814745bfbb')]",
+      "location": "West Europe",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_uni_archive_name'))]"
+      ],
+      "properties": {
+        "id": "7d3e8682f950c74c4a3aff8bb0f148814745bfbb",
+        "status": 4,
+        "author_email": "sbania@unicef.org",
+        "author": "Sebastian Bania",
+        "deployer": "VSTS",
+        "message": "Added README.md file\n",
+        "start_time": "2019-04-25T20:17:55.898815Z",
+        "end_time": "2019-04-25T20:17:59.8675712Z",
+        "active": false
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/deployments",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(parameters('sites_uni_archive_name'), '/960dc941fbfeaec083edbe8a11fefac10d1f56c1')]",
+      "location": "West Europe",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_uni_archive_name'))]"
+      ],
+      "properties": {
+        "id": "960dc941fbfeaec083edbe8a11fefac10d1f56c1",
+        "status": 4,
+        "author_email": "kkhajuria@unicef.org",
+        "author": "Kaushik Khajuria",
+        "deployer": "VSTS",
+        "message": "Deleting Malaysia\n",
+        "start_time": "2019-05-03T00:45:45.5879489Z",
+        "end_time": "2019-05-03T00:47:17.1741072Z",
+        "active": false
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/hostNameBindings",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(parameters('sites_uni_archive_name'), '/', parameters('sites_uni_archive_name'), '.azurewebsites.net')]",
+      "location": "West Europe",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_uni_archive_name'))]"
+      ],
+      "properties": {
+        "siteName": "uni-archive",
+        "hostNameType": "Verified"
+      }
+    }
+  ]
+}
