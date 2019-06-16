@@ -9,14 +9,6 @@
     "serverfarms_APP_UNI_WEBS_STATIC_externalid": {
       "defaultValue": "/subscriptions/878024e4-58e0-423a-8c18-5d58cd6da2d3/resourceGroups/RS-UNI-WEBS/providers/Microsoft.Web/serverfarms/APP-UNI-WEBS-STATIC",
       "type": "String"
-    },
-    "Subscription": {
-      "defaultValue": "UNICEF_ITSS_WEBS",
-      "type": "String"
-    },
-    "Resource Group": {
-      "defaultValue": "RS-UNI-ICTD-STATIC",
-      "type": "String"
     }
   },
   "variables": {
